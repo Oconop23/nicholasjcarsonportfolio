@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 import { projects } from '../data/projects';
 
 export default function ProjectDetail() {
@@ -8,13 +8,27 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const project = projects.find(p => p.id === id);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleBack = () => {
+    navigate('/');
+    setTimeout(() => {
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Project not found</h2>
           <button
-            onClick={() => navigate('/')}
+            onClick={handleBack}
             className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -29,7 +43,7 @@ export default function ProjectDetail() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <button
-          onClick={() => navigate('/')}
+          onClick={handleBack}
           className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-8"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -66,18 +80,27 @@ export default function ProjectDetail() {
             </div>
           )}
 
-          {project.gallery && (
+          {project.timeline && (
             <div className="mt-12">
-              <h3 className="text-xl font-semibold mb-6">Project Gallery</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {project.gallery.map((image, index) => (
-                  <div key={index} className="relative pb-[56.25%]">
-                    <img
-                      src={image}
-                      alt={`${project.title} gallery image ${index + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                      loading="lazy"
-                    />
+              <h3 className="text-xl font-semibold mb-6">Project Timeline</h3>
+              <div className="space-y-8">
+                {project.timeline.map((event, index) => (
+                  <div key={index} className="relative pl-8 pb-8 border-l-2 border-indigo-200 last:pb-0">
+                    <div className="absolute left-[-9px] top-0 w-4 h-4 bg-indigo-600 rounded-full" />
+                    <div className="mb-2 flex items-center gap-2 text-indigo-600">
+                      <Calendar className="w-4 h-4" />
+                      <span className="font-medium">{event.date}</span>
+                    </div>
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{event.title}</h4>
+                    <p className="text-gray-600 mb-4">{event.description}</p>
+                    <div className="relative pb-[56.25%] rounded-lg overflow-hidden shadow-md">
+                      <img
+                        src={event.imageUrl}
+                        alt={event.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
