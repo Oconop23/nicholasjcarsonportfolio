@@ -29,7 +29,7 @@ export default function Projects() {
                   loading="lazy"
                 />
               </div>
-              <div className="p-6 flex-1 flex flex-col">
+              <div className="p-6 flex-1">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
                 <p className="text-gray-600">{project.description}</p>
               </div>
