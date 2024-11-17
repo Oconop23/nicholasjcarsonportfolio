@@ -18,7 +18,7 @@ export default function Awards() {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-gray-50">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold text-gray-900 mb-12 flex items-center gap-3 justify-center">
           <Trophy className="w-8 h-8 text-indigo-600" />
@@ -26,7 +26,7 @@ export default function Awards() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {awards.map((award, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div key={index} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
               <h3 className="text-xl font-bold text-gray-900 mb-4">{award.title}</h3>
               <p className="text-gray-600">{award.description}</p>
             </div>
