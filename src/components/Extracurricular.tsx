@@ -9,7 +9,6 @@ export default function Extracurricular() {
     "Intro to Robotics Club",
     "California-Scholarship-Federation Leadership",
     "Presidents Club",
-    "Badminton Club",
     "Vexillology Club",
     "Creators Club"
   ];
